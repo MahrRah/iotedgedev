@@ -1,6 +1,6 @@
-### Use cases
+# Use cases
 
-#### Templating
+## Templating
 
 As a user I'd like to use a templated layered deployment manifest with the IoTEdgeDev tool to generate a valid layered deployment manifest
 
@@ -15,7 +15,7 @@ As a user I'd like to use a templated layered deployment manifest with the IoTEd
 
 - Should IoTEdgeDev tool fail on invalid layered deployment templates, such as only system modules? Or should we leave that up to the azure cli command, in order not to bind ourselves to that?
 
-#### Build
+## Build
 
 As a user I'd like to use a templated layered deployment manifest with the IoTEdgeDev tool to build custom docker images in the template
 
@@ -29,7 +29,7 @@ As a user I'd like to use a templated layered deployment manifest with the IoTEd
 
 - Are the tests for the regular deployments enough to cover edge cases? (Such as building without pushing, ect)
 
-#### Push
+## Push
 
 As a user I'd like to use a templated layered deployment manifest with the IoTEdgeDev tool to push custom docker images in the template to my ACR
 
@@ -43,7 +43,7 @@ As a user I'd like to use a templated layered deployment manifest with the IoTEd
 
 - Are the tests for the regular deployments enough to cover edge cases? (Such as pushing without building, ect)
 
-#### Deploy
+## Deploy
 
 As a user I'd like to use a layered deployment manifest with the IoTEdgeDev tool to deploy the layer to IoT Hub
 
@@ -61,11 +61,13 @@ As a user I'd like to use a layered deployment manifest with the IoTEdgeDev tool
 
 **Considerations:**
 
-- Maybe differentiate between base and layered deployments (right now the `az iot edge deployment` `--layered` flag seems to not make a difference to as to what the deployment is deployed as). May be possible to figure out if the layered deployment is a base or layered by looking at the manifest layout
+- Maybe differentiate between base and layered deployments 
+  - **Azure CLI** (right now the `az iot edge deployment` `--layered` flag seems to not make a difference to as to what the deployment is deployed as). May be possible to figure out if the layered deployment is a base or layered by looking at the manifest layout
 - Could implement without changing the `deploy` command by using the `.env`, but that may lead to a poorer user experience, due to each deployment requiring a unique name and priority
 - Priority of the base deployment must be lower than the layer deployments to ensure correct behavior of the layered deployments (For example, with layered deployments and base deployments of the same priority, if the base deployment is deployed after the layered, the layered wont be applied, but will be if the order is reverse. In addition a layered deployment  as a base deployment is unapplied if a base deployment with the same priority is deployed later)
+- **Azure CLI** does not do full validation of the layered deployment config, as such, you can complete a deployment and have the **Azure portal** show an `invalid schema` error
 
-#### Tag Edge Device
+## Tag Edge Device
 
 As a user I'd like to tag my edge device with the corresponding `target-condition` of my layered deployment
 
@@ -79,8 +81,9 @@ As a user I'd like to tag my edge device with the corresponding `target-conditio
 **Considerations:**
 
 - Is there any difference in tagging a IoT device vs an IoT Edge device?
+- **Azure CLI** allows full tagging
 
-#### Simulation
+## Simulation
 
 As a user I'd like to use my layered deployment manifest with the IoTEdgeDev tool to deploy to my simulated environment
 
